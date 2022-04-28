@@ -1,30 +1,27 @@
 export class ConjuredItem {
-    name: string;
-    sellIn: number;
-    quality: number;
-  
-    constructor(item: { name: string, sellIn: number, quality: number }) {
-      this.name = item.name;
-      this.sellIn = item.sellIn;
-      this.quality = item.quality;
+  name: string;
+  sellIn: number;
+  quality: number;
 
-      this.conditions();
-  
-      return this;
-    }
+  constructor(item: { name: string, sellIn: number, quality: number }) {
+    this.name = item.name;
+    this.sellIn = item.sellIn;
+    this.quality = item.quality;
 
-    conditions() {
-      if (this.sellIn >= 5 && this.quality != 0) {
-        this.quality -= 2;
-      } else if (this.sellIn <= 0 && this.quality != 0) {
-        this.quality -= 4;
-      }
+    this.conditions();
 
-      if (this.quality == 0) {
-        this.quality = 0;
-      }
-
-      this.sellIn = this.sellIn -= 1;
-    }
+    return this;
   }
-  
+
+  conditions() {
+    if (this.quality == 0) {
+      this.quality = 0;
+    } else if (this.sellIn >= 5) {
+      this.quality -= 2;
+    } else if (this.sellIn <= 0) {
+      this.quality -= 4;
+    }
+
+    this.sellIn = this.sellIn -= 1;
+  }
+}
