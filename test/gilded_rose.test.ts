@@ -3,7 +3,7 @@ import GildedRose from "../src/gilded_rose";
 describe("Gilded Rose", () => {
   let name: string;
 
-  describe('Normal Item', () => {
+  xdescribe('Normal Item', () => {
     beforeEach(() => {
       name = "Normal Item";
     });
@@ -50,40 +50,40 @@ describe("Gilded Rose", () => {
       const sellIn = 5;
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
-      expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 1);
+      expect(item.sellIn).toBe(sellIn - 1); // 4
+      expect(item.quality).toBe(quality + 1); // 11
     });
 
     it('updates when before sell date with max quality', () => {
       const sellIn = 5;
       const quality = 50;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
-      expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.sellIn).toBe(sellIn - 1); // 4
+      expect(item.quality).toBe(quality); // 50
     });
 
     it('updates when on sell date', () => {
       const sellIn = 0;
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
-      expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 2);
+      expect(item.sellIn).toBe(sellIn - 1); // -1
+      expect(item.quality).toBe(quality + 2); // 12
     });
 
     it('updates when on sell date near max quality', () => {
       const sellIn = 0;
       const quality = 49;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
-      expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(50);
+      expect(item.sellIn).toBe(sellIn - 1); // -1
+      expect(item.quality).toBe(50); // 50
     });
 
     it('updates when on sell date with max quality', () => {
       const sellIn = 0;
       const quality = 50;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
-      expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.sellIn).toBe(sellIn - 1); // -1
+      expect(item.quality).toBe(quality); // 50
     });
 
     it('updates when after sell date', () => {
@@ -151,7 +151,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 1);
+      expect(item.quality).toBe(quality + 1); // sellin > 10 => +1
     });
 
     it('updates when long before sell date at max quality', () => {
@@ -166,7 +166,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 2);
+      expect(item.quality).toBe(quality + 2); // quality >= 10 => +2
     });
 
     it('updates when medium close to sell date (upper bound) at max quality', () => {
@@ -174,7 +174,7 @@ describe("Gilded Rose", () => {
       const quality = 50;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // 50 - do nothing
     });
 
     it('updates when medium close to sell date (lower bound)', () => {
@@ -182,7 +182,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 2);
+      expect(item.quality).toBe(quality + 2); // sellin < 11 => +2
     });
 
     it('updates when medium close to sell date (lower bound) at max quality', () => {
@@ -190,7 +190,7 @@ describe("Gilded Rose", () => {
       const quality = 50;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // 50 - do nothing
     });
 
     it('updates when very close to sell date (upper bound)', () => {
@@ -198,7 +198,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 3);
+      expect(item.quality).toBe(quality + 3); // sellin < 6 => +3
     });
 
     it('updates when very close to sell date (upper bound) at max quality', () => {
@@ -206,7 +206,7 @@ describe("Gilded Rose", () => {
       const quality = 50;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // 50 - do nothing
     });
 
     it('updates when very close to sell date (lower bound)', () => {
@@ -214,7 +214,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality + 3);
+      expect(item.quality).toBe(quality + 3); // sellin less than 6 => +3 
     });
 
     it('updates when very close to sell date (lower bound) at max quality', () => {
@@ -222,7 +222,7 @@ describe("Gilded Rose", () => {
       const quality = 50;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // 50 => do nothing
     });
 
     it('updates when on sell date', () => {
@@ -230,7 +230,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(0);
+      expect(item.quality).toBe(0); // when sellin <= 0 => set quality to 0
     });
 
     it('updates when after sell date', () => {
@@ -238,7 +238,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(0);
+      expect(item.quality).toBe(0); // when sellin <= 0 => set quality to 0
     });
   });
 
@@ -247,56 +247,56 @@ describe("Gilded Rose", () => {
       name = "Conjured Mana Cake";
     });
 
-    it.skip('updates when before sell date', () => {
+    it('updates when before sell date', () => {
       const sellIn = 5;
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
-      expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality - 2);
+      expect(item.sellIn).toBe(sellIn - 1); 
+      expect(item.quality).toBe(quality - 2); // sellin >= 5 => quality += 2
     });
 
-    it.skip('updates when before sell date at zero quality', () => {
+    it('updates when before sell date at zero quality', () => {
       const sellIn = 5;
       const quality = 0;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // if quality = 0 => do nothing
     });
 
-    it.skip('updates when on sell date', () => {
+    it('updates when on sell date', () => {
       const sellIn = 0;
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality - 4);
+      expect(item.quality).toBe(quality - 4); // sellin <= 0 && quality > 0 => quality -= 4
     });
 
-    it.skip('updates when on sell date at zero quality', () => {
+    it('updates when on sell date at zero quality', () => {
       const sellIn = 0;
       const quality = 0;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // sellin <= 0 && quality = 0 => do nothing
     });
 
-    it.skip('updates when after sell date', () => {
+    it('updates when after sell date', () => {
       const sellIn = -10;
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality - 4);
+      expect(item.quality).toBe(quality - 4); // sellin <= 0  && quality > 0 => quality -= 4
     });
 
-    it.skip('updates when after sell date at zero quality', () => {
+    it('updates when after sell date at zero quality', () => {
       const sellIn = -10;
-      const quality = 10;
+      const quality = 0;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality);
+      expect(item.quality).toBe(quality); // sellin <= 0 && quality = 0 => do nothing 
     });
   });
 
-  describe('Multiple Items', () => {
+  xdescribe('Multiple Items', () => {
     it('updates multiple items', () => {
       const [item1, item2] = GildedRose.adjustQuality([
         {name: "Normal Item", sellIn: 5, quality: 10},
