@@ -3,7 +3,7 @@ import GildedRose from "../src/gilded_rose";
 describe("Gilded Rose", () => {
   let name: string;
 
-  xdescribe('Normal Item', () => {
+  describe('Normal Item', () => {
     beforeEach(() => {
       name = "Normal Item";
     });
@@ -21,7 +21,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality - 2);
+      expect(item.quality).toBe(quality - 2); // sellin <= 0 => -2 
     });
 
     it('updates when after sell date', () => {
@@ -29,7 +29,7 @@ describe("Gilded Rose", () => {
       const quality = 10;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(quality - 2);
+      expect(item.quality).toBe(quality - 2);  // sellin <= 0 => -2 
     });
 
     it('updates when of zero quality', () => {
@@ -37,7 +37,7 @@ describe("Gilded Rose", () => {
       const quality = 0;
       const [item] = GildedRose.adjustQuality([{ name, sellIn, quality }]);
       expect(item.sellIn).toBe(sellIn - 1);
-      expect(item.quality).toBe(0);
+      expect(item.quality).toBe(0);  // quality = 0 => 0
     });
   });
 
@@ -296,7 +296,7 @@ describe("Gilded Rose", () => {
     });
   });
 
-  xdescribe('Multiple Items', () => {
+  describe('Multiple Items', () => {
     it('updates multiple items', () => {
       const [item1, item2] = GildedRose.adjustQuality([
         {name: "Normal Item", sellIn: 5, quality: 10},

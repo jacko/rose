@@ -1,4 +1,4 @@
-export class AgedBrie {
+export class NormalItem {
   name: string;
   sellIn: number;
   quality: number;
@@ -8,21 +8,20 @@ export class AgedBrie {
     this.sellIn = item.sellIn;
     this.quality = item.quality;
 
-    const result = this.conditions()
-    this.quality = result < 50 ? result : 50;
+    this.conditions();
 
     return this;
   }
 
   conditions() {
-    if (this.sellIn > 0) {
-      this.quality += 1
+    if (this.quality == 0) {
+      this.quality = 0;
+    } else if (this.sellIn <= 0) {
+      this.quality -= 2;
     } else {
-      this.quality += 2;
+      this.quality -= 1;
     }
 
     this.sellIn = this.sellIn -= 1;
-
-    return this.quality;
   }
 }

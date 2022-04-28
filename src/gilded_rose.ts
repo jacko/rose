@@ -1,6 +1,7 @@
 import { AgedBrie } from "./modules/AgedBrie";
 import { BackstagePass } from "./modules/BackstagePass";
 import { ConjuredItem } from "./modules/ConjuredItem";
+import { NormalItem } from "./modules/Normaltem";
 import { Sulfuras } from "./modules/Sulfuras";
 
 export type Items = Item[];
@@ -33,6 +34,10 @@ const adjustQuality = (items: Items): Items => {
 
       case "Conjured Mana Cake":
         item = new ConjuredItem(item);
+      break;
+
+      case "Normal Item":
+        item = new NormalItem(item);
       break;
     }
 
